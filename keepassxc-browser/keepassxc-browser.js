@@ -63,7 +63,7 @@ browser.runtime.onMessage.addListener(function(req, sender, callback) {
 			browser.runtime.sendMessage({
 				action: 'load_settings',
 			}).then((response) => {
-				cip.settings = response.data;
+				cip.settings = response;
 				cip.initCredentialFields(true);
 			});
 		}
@@ -466,6 +466,8 @@ cipPassword.checkObservedElements = function() {
 				cipPassword.setIconPosition(iconField, field);
 				field.data('cip-password-generator', true);
 			}
+
+
 		}
 		else {
 			cipPassword.observedIcons.splice(index, 1);
@@ -797,12 +799,25 @@ cipFields.prepareId = function(id) {
 	return id.replace(/[:#.,\[\]\(\)' "]/g, function(m) { return '\\'+m; });
 };
 
+// Check aria-hidden attribute by looping the parent elements of input field
+cipFields.getAriaHidden = function(field) {
+	let $par = jQuery(field).parents();
+	for (p of $par) {
+		const val = $(p).attr('aria-hidden');
+		if (val) {
+			return val;
+		}
+	}
+	return 'false';
+};
+
 cipFields.getAllFields = function() {
 	let fields = [];
 
 	// get all input fields which are text, email or password and visible
 	jQuery(cipFields.inputQueryPattern).each(function() {
-		if (jQuery(this).is(':visible') && jQuery(this).css('visibility') !== 'hidden' && jQuery(this).css('visibility') !== 'collapsed') {
+		let ariaHidden = cipFields.getAriaHidden(this);
+		if (jQuery(this).is(':visible') && jQuery(this).css('visibility') !== 'hidden' && jQuery(this).css('visibility') !== 'collapsed' && ariaHidden === 'false') {
 			cipFields.setUniqueId(jQuery(this));
 			fields.push(jQuery(this));
 		}
@@ -1468,10 +1483,7 @@ cip.setValueWithChange = function(field, value) {
 
 	if (cip.settings.respectMaxLength === true) {
 		const attribute_maxlength = field.attr('maxlength');
-		if (typeof attribute_maxlength !== typeof undefined &&
-			$.isNumeric(attribute_maxlength) === true &&
-			attribute_maxlength > 0) {
-
+		if (attribute_maxlength && $.isNumeric(attribute_maxlength) === true && attribute_maxlength > 0) {
 			value = value.substr(0, attribute_maxlength);
 		}
 	}
