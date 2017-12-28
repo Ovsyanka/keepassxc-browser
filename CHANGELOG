@@ -1,7 +1,7 @@
 0.4.5 (28-12-2017)
 =========================
 - Added support for aria-hidden attribute when checking input field visibility
-- Fixed a bug in redetectin credentials
+- Fixed a bug in redetecting credentials
 - Small CSS fixes
 
 0.4.4 (17-12-2017)
