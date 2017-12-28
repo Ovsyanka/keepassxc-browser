@@ -63,7 +63,7 @@ browser.runtime.onMessage.addListener(function(req, sender, callback) {
 			browser.runtime.sendMessage({
 				action: 'load_settings',
 			}).then((response) => {
-				cip.settings = response.data;
+				cip.settings = response;
 				cip.initCredentialFields(true);
 			});
 		}
