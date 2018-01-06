@@ -1,6 +1,5 @@
-0.4.6 (06-01-2018)
+0.4.8 (06-01-2018)
 =========================
-- Added support for overflow hidden CSS in parent elements
 - Changed native messaging host name to org.keepassxc.keepassxc_browser
 - Exclude XSD files from content scripts
 - Switched default keyboard shortcuts to Alt+Shift+U and Alt+Shift+P
