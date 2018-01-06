@@ -811,13 +811,26 @@ cipFields.getAriaHidden = function(field) {
 	return 'false';
 };
 
+cipFields.getOverflowHidden = function(field) {
+	let $par = jQuery(field).parents();
+	for (p of $par) {
+		const val = $(p).css('overflow');
+		if (val === 'hidden') {
+			return true;
+		}
+	}
+	return false;
+};
+
 cipFields.getAllFields = function() {
 	let fields = [];
 
 	// get all input fields which are text, email or password and visible
 	jQuery(cipFields.inputQueryPattern).each(function() {
 		let ariaHidden = cipFields.getAriaHidden(this);
-		if (jQuery(this).is(':visible') && jQuery(this).css('visibility') !== 'hidden' && jQuery(this).css('visibility') !== 'collapsed' && ariaHidden === 'false') {
+		let overflowHidden = cipFields.getOverflowHidden(this);
+
+		if (jQuery(this).is(':visible') && jQuery(this).css('visibility') !== 'hidden' && jQuery(this).css('visibility') !== 'collapsed' && ariaHidden === 'false' && overflowHidden === false) {
 			cipFields.setUniqueId(jQuery(this));
 			fields.push(jQuery(this));
 		}
