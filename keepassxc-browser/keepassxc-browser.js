@@ -830,7 +830,7 @@ cipFields.getAllFields = function() {
 		let ariaHidden = cipFields.getAriaHidden(this);
 		let overflowHidden = cipFields.getOverflowHidden(this);
 
-		if (jQuery(this).is(':visible') && jQuery(this).css('visibility') !== 'hidden' && jQuery(this).css('visibility') !== 'collapsed' && ariaHidden === 'false' && overflowHidden === false) {
+		if (jQuery(this).is(':visible') && jQuery(this).css('visibility') !== 'hidden' && jQuery(this).css('visibility') !== 'collapsed' && ariaHidden === 'false') {
 			cipFields.setUniqueId(jQuery(this));
 			fields.push(jQuery(this));
 		}
