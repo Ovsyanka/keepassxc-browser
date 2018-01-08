@@ -1435,7 +1435,7 @@ cip.fillInFromActiveElement = function(suppressWarnings, passOnly = false) {
 
 	delete combination.loginId;
 
-	cip.fillInCredentials(combination, false, suppressWarnings);
+	cip.fillInCredentials(combination, passOnly, suppressWarnings);
 };
 
 cip.fillInFromActiveElementTOTPOnly = function(suppressWarnings) {
