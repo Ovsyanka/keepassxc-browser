@@ -120,6 +120,14 @@ browser.commands.onCommand.addListener((command) => {
 			}
 		});
 	}
+
+    if (command === 'fill-totp') {
+		browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+			if (tabs.length) {
+				browser.tabs.sendMessage(tabs[0].id, { action: 'fill_totp' });
+			}
+		});
+	}
 });
 
 // Interval which updates the browserAction (e.g. blinking icon)

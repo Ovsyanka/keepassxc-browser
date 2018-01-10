@@ -65,16 +65,23 @@
 			"description": "Insert username + password",
 			"suggested_key": {
 				"default": "Alt+Shift+U",
-				"mac": "Alt+Shift+U"
+				"mac": "MacCtrl+Shift+U"
 			}
 		},
 		"fill-password": {
 			"description": "Insert a password",
 			"suggested_key": {
 				"default": "Alt+Shift+P",
-				"mac": "Alt+Shift+P"
+				"mac": "MacCtrl+Shift+P"
 			}
-		}
+		},
+        "fill-totp": {
+            "description": "Insert a TOTP",
+            "suggested_key": {
+                "default": "Alt+Shift+T",
+                "mac": "MacCtrl+Shift+T"
+            }
+        }
 	},
 	"web_accessible_resources": [
 		"icons/key.png"
