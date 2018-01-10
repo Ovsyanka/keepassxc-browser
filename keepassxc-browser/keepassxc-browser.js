@@ -1211,7 +1211,7 @@ cip.initCredentialFields = function(forceCall) {
 		}
 		cipFields.prepareCombinations(cipFields.combinations);
 
-		if (cipFields.combinations.length === 0) {
+        if (cipFields.combinations.length === 0 && inputs.length === 0) {
 			browser.runtime.sendMessage({
 				action: 'show_default_browseraction'
 			});
@@ -1242,7 +1242,7 @@ cip.initPasswordGenerator = function(inputs) {
 	}
 };
 
-cip.receiveCredentialsIfNecessary = function () {
+cip.receiveCredentialsIfNecessary = function() {
 	if (cip.credentials.length === 0) {
 		browser.runtime.sendMessage({
 			action: 'retrieve_credentials',
@@ -1251,7 +1251,7 @@ cip.receiveCredentialsIfNecessary = function () {
 	}
 };
 
-cip.retrieveCredentialsCallback = function (credentials, dontAutoFillIn) {
+cip.retrieveCredentialsCallback = function(credentials, dontAutoFillIn) {
 	if (cipFields.combinations.length > 0) {
 		cip.u = _f(cipFields.combinations[0].username);
 		cip.p = _f(cipFields.combinations[0].password);
@@ -1341,6 +1341,10 @@ cip.preparePageForMultipleCredentials = function(credentials) {
 };
 
 cip.getFormActionUrl = function(combination) {
+    if (!combination) {
+        return null;
+    }
+
 	const field = _f(combination.password) || _f(combination.username);
 
     if (field === null) {
@@ -1442,7 +1446,6 @@ cip.fillInFromActiveElementTOTPOnly = function(suppressWarnings) {
 	const el = document.activeElement;
 	cipFields.setUniqueId(jQuery(el));
 	const fieldId = cipFields.prepareId(jQuery(el).attr('data-cip-id'));
-
 
 	if (cip.credentials[0]) {
 		const $sf = _fs(fieldId);

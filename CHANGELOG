@@ -1,6 +1,7 @@
 0.4.9 (??-??-2018)
 =========================
 - Fixed an error when filling only a password
+- Credential retrieval is allowed when only one input field is visible (TOTP)
 
 0.4.8 (06-01-2018)
 =========================
