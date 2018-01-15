@@ -12,7 +12,7 @@ kpxcEvent.onMessage = function(request, sender, callback) {
 
 		// onMessage closes channel for callback automatically
 		// if this method does not return true
-		if (callback) {
+		if (callback !== undefined) {
 			return true;
 		}
 	}
