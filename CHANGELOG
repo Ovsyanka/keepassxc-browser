@@ -1,7 +1,13 @@
-0.4.9 (??-??-2018)
+0.5.0 (??-??-2018)
 =========================
 - Fixed an error when filling only a password
 - Credential retrieval is allowed when only one input field is visible (TOTP)
+- Asynchronous receiveCredentialsIfNecessary()
+- Send triggerUnlock with request that need to popup KeePassXC to front
+- Added verifyDatabaseResponse to get_databasehash
+- Renamed keepassxc-browser to KeePassXC-Browser
+- Removed duplicate retrieve_credentials requests
+- Fixed identation
 
 0.4.8 (06-01-2018)
 =========================
