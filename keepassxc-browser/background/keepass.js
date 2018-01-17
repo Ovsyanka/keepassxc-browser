@@ -361,15 +361,15 @@ keepass.associate = function(callback, tab) {
 
         const messageData = {
             action: kpAction,
-            key: key,
-            triggerUnlock: "true"
+            key: key
         };
 
         const request = {
             action: kpAction,
             message: keepass.encrypt(messageData, nonce),
             nonce: nonce,
-            clientID: keepass.clientID
+            clientID: keepass.clientID,
+            triggerUnlock: 'true'
         };
 
         keepass.sendNativeMessage(request).then((response) => {
@@ -531,7 +531,7 @@ keepass.getDatabaseHash = function(callback, tab, enableTimeout = false, trigger
     };
 
     if (triggerUnlock === true) {
-        request.triggerUnlock = "true";
+        request.triggerUnlock = 'true';
     }
 
     keepass.sendNativeMessage(request, enableTimeout).then((response) => {
