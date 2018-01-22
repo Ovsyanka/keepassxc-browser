@@ -1,6 +1,7 @@
 // contains already called method names
 var _called = {};
 _called.retrieveCredentials = false;
+_called.manualFillRequested = 'none';
 
 // Count of detected form fields on the page
 var _detectedFields = 0;
@@ -27,11 +28,13 @@ browser.runtime.onMessage.addListener(function(req, sender, callback) {
             }
         }
         else if (req.action === 'fill_user_pass') {
+            _called.manualFillRequested = 'both';
             cip.receiveCredentialsIfNecessary().then((response) => {
                 cip.fillInFromActiveElement(false);
             });
         }
         else if (req.action === 'fill_pass_only') {
+            _called.manualFillRequested = 'pass';
             cip.receiveCredentialsIfNecessary().then((response) => {
                 cip.fillInFromActiveElement(false, true); // passOnly to true
             });
@@ -270,7 +273,9 @@ cipPassword.createDialog = function() {
                     e.preventDefault();
                     browser.runtime.sendMessage({
                         action: 'generate_password'
-                    }).then(cipPassword.callbackGeneratedPassword).catch((e) => {console.log(e);});
+                    }).then(cipPassword.callbackGeneratedPassword).catch((e) => {
+                        console.log(e);
+                    });
                 }
             },
             'Copy':
@@ -1185,10 +1190,19 @@ cip.detectDatabaseChange = function() {
                         }).then((response) => {
                             cip.settings = response;
                             cip.initCredentialFields(true);
+
+                            // If user has requested a manual fill through context menu the actual credential filling
+                            // is handled here when the opened database has been regognized. It's not a pretty hack.
+                            if (_called.manualFillRequested && _called.manualFillRequested !== 'none') {
+                                cip.fillInFromActiveElement(false, (_called.manualFillRequested === 'pass' ? true : false));
+                                _called.manualFillRequested = 'none';
+                            }
                         });
                     }
                 }
-            }).catch((e) => {console.log(e);});
+            }).catch((e) => {
+                console.log(e);
+            });
         }
     }, 1000);
 };
@@ -1224,7 +1238,9 @@ cip.initCredentialFields = function(forceCall) {
             browser.runtime.sendMessage({
                 action: 'retrieve_credentials',
                 args: [ cip.url, cip.submitUrl ]
-            }).then(cip.retrieveCredentialsCallback).catch((e) => {console.log(e);});
+            }).then(cip.retrieveCredentialsCallback).catch((e) => {
+                console.log(e);
+            });
         }
     });
 };
@@ -1248,7 +1264,8 @@ cip.receiveCredentialsIfNecessary = function() {
                 action: 'retrieve_credentials',
                 args: [ cip.url, cip.submitUrl, false, true ] // Sets triggerUnlock to true
             }).then((credentials) => {
-                console.log("Credential response, size: " + credentials.length);
+                // If the database was locked, this is scope never met. In these cases the response is met at cip.detectDatabaseChange
+                _called.manualFillRequested = 'none';
                 cip.retrieveCredentialsCallback(credentials, false);
                 resolve(credentials);
             });
@@ -1795,6 +1812,8 @@ cipEvents.triggerActivatedTab = function() {
         browser.runtime.sendMessage({
             action: 'retrieve_credentials',
             args: [ cip.url, cip.submitUrl ]
-        }).then(cip.retrieveCredentialsCallback).catch((e) => {console.log(e);});
+        }).then(cip.retrieveCredentialsCallback).catch((e) => {
+            console.log(e);
+        });
     }
 };

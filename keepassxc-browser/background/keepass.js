@@ -880,7 +880,7 @@ keepass.verifyKeyResponse = function(response, key, nonce) {
 
     let reply = false;
     if (!keepass.checkNonceLength(response.nonce)) {
-        console.log("Invalid nonce length");
+        console.log('Error: Invalid nonce length');
         return false;
     }
 
@@ -909,7 +909,7 @@ keepass.verifyResponse = function(response, nonce, id) {
 
     keepass.associated.value = (response.nonce === nonce);
     if (keepass.associated.value === false) {
-        console.log("Nonce compare failed");
+        console.log('Error: Nonce compare failed');
         return false;
     }
 
@@ -928,12 +928,12 @@ keepass.verifyDatabaseResponse = function(response, nonce) {
     }
 
     if (!keepass.checkNonceLength(response.nonce)) {
-        console.log("Invalid nonce length");
+        console.log('Error: Invalid nonce length');
         return false;
     }
 
     if (response.nonce !== nonce) {
-        console.log("Nonce compare failed");
+        console.log('Error: Nonce compare failed');
         return false;
     }
 
