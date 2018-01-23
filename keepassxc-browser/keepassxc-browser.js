@@ -1234,7 +1234,7 @@ cip.initCredentialFields = function(forceCall) {
         cip.url = document.location.origin;
         cip.submitUrl = cip.getFormActionUrl(cipFields.combinations[0]);
 
-        if (cip.settings.autoRetrieveCredentials && _called.retrieveCredentials === false) {
+        if (cip.settings.autoRetrieveCredentials && _called.retrieveCredentials === false && (cip.url && cip.submitUrl)) {
             browser.runtime.sendMessage({
                 action: 'retrieve_credentials',
                 args: [ cip.url, cip.submitUrl ]
@@ -1808,7 +1808,7 @@ cipEvents.triggerActivatedTab = function() {
 
     // initCredentialFields calls also "retrieve_credentials", to prevent it
     // check of init() was already called
-    if (_called.initCredentialFields && (cip.url || cip.submitUrl) && cip.settings.autoRetrieveCredentials) {
+    if (_called.initCredentialFields && (cip.url && cip.submitUrl) && cip.settings.autoRetrieveCredentials) {
         browser.runtime.sendMessage({
             action: 'retrieve_credentials',
             args: [ cip.url, cip.submitUrl ]
