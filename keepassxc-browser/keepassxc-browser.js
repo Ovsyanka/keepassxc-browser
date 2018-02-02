@@ -623,7 +623,7 @@ cipDefine.initDescription = function() {
                 fieldIds.push(cipFields.prepareId(i));
             }
 
-            cip.settings['defined-credential-fields'][document.location.origin] = {
+            cip.settings['defined-credential-fields'][document.location.href] = {
                 username: cipDefine.selection.username,
                 password: cipDefine.selection.password,
                 fields: fieldIds
@@ -643,7 +643,7 @@ cipDefine.initDescription = function() {
     $description.append($btnAgain);
     $description.append($btnDismiss);
 
-    if (cip.settings['defined-credential-fields'] && cip.settings['defined-credential-fields'][document.location.origin]) {
+    if (cip.settings['defined-credential-fields'] && cip.settings['defined-credential-fields'][document.location.href]) {
         const $p = jQuery('<p>').html('For this page credential fields are already selected and will be overwritten.<br />');
         const $btnDiscard = jQuery('<button>')
             .attr('id', 'btn-warning')
@@ -653,7 +653,7 @@ cipDefine.initDescription = function() {
             .addClass('btn-sm')
             .addClass('btn-danger')
             .click(function(e) {
-                delete cip.settings['defined-credential-fields'][document.location.origin];
+                delete cip.settings['defined-credential-fields'][document.location.href];
 
                 browser.runtime.sendMessage({
                     action: 'save_settings',
@@ -898,7 +898,7 @@ cipFields.getCombination = function(givenType, fieldId) {
         }
     }
     // use defined credential fields (already loaded into combinations)
-    if (cip.settings['defined-credential-fields'] && cip.settings['defined-credential-fields'][document.location.origin]) {
+    if (cip.settings['defined-credential-fields'] && cip.settings['defined-credential-fields'][document.location.href]) {
         return cipFields.combinations[0];
     }
 
@@ -1098,8 +1098,8 @@ cipFields.prepareCombinations = function(combinations) {
 };
 
 cipFields.useDefinedCredentialFields = function() {
-    if (cip.settings['defined-credential-fields'] && cip.settings['defined-credential-fields'][document.location.origin]) {
-        const creds = cip.settings['defined-credential-fields'][document.location.origin];
+    if (cip.settings['defined-credential-fields'] && cip.settings['defined-credential-fields'][document.location.href]) {
+        const creds = cip.settings['defined-credential-fields'][document.location.href];
 
         let $found = _f(creds.username) || _f(creds.password);
         for (const i of creds.fields) {
