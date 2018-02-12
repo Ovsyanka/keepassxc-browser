@@ -43,6 +43,13 @@ The following improvements and features have been made after the fork. At this p
 
 The details about the messaging protocol used with the browser extension and KeePassXC can be found [here](keepassxc-protocol.md).
 
+## Testing
+
+To run some basic tests you can install the needed dependencies with `npm install`.
+
+For running unit tests: `npm run unit-tests`.
+For integration tests: `npm run integration-tests`.
+
 ## Licenses
 
 ```
