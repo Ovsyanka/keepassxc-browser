@@ -1,3 +1,8 @@
+0.5.3 (??-02-2018)
+=========================
+- Changed keyboard shortcut descriptions from the options page
+- Added some basic tests
+
 0.5.2 (02-02-2018)
 =========================
 - Choose own credential fields saves the full URL instead of host
