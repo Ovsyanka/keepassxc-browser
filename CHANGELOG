@@ -2,6 +2,7 @@
 =========================
 - Changed keyboard shortcut descriptions from the options page
 - Added some basic tests
+- Updated jQuery from 3.2.1 to 3.3.1
 
 0.5.2 (02-02-2018)
 =========================
