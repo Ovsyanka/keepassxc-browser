@@ -6,11 +6,9 @@ Browser extension for [KeePassXC](https://keepassxc.org/) with native messaging.
 This is a heavily forked version of [pfn](https://github.com/pfn)'s [chromeIPass](https://github.com/pfn/passifox).
 Some changes merged also from [smorks'](https://github.com/smorks) [KeePassHttp-Connector](https://github.com/smorks/keepasshttp-connector).
 
-A development build of KeePassXC is needed. You can also use pre-built [binaries](https://github.com/varjolintu/keepassxc/releases).
+Get the extension for [Firefox](https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/) or [Chrome/Chromium](https://chrome.google.com/webstore/detail/keepassxc-browser/oboonakemofpalcgghocfoadofidjkkk).
 
-Get the extension for [Firefox](https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/) or [Chrome/Chromium](https://chrome.google.com/webstore/detail/keepassxc-browser/iopaggbpplllidnfmcghoonnokmjoicf).
-
-Please see this [wiki page](https://github.com/varjolintu/keepassxc-browser/wiki/Connecting-the-database-with-keepassxc-browser) for instructions how to configure this KeePassXC fork in order to connect the database correctly.
+Please see this [document page](https://keepassxc.org/docs/keepassxc-browser-migration/) for instructions how to configure this KeePassXC fork in order to connect the database correctly.
 
 ## How it works
 There are two methods which you can use KeePassXC-Browser to connect to KeePassXC:
@@ -53,6 +51,7 @@ For integration tests: `npm run integration-tests`.
 ## Licenses
 
 ```
+KeePassXC-Browser Copyright (C) 2017-2018 KeePassXC Team
 KeePassXC-Browser Copyright (C) 2017-2018 Sami Vänttinen
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
