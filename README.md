@@ -3,7 +3,7 @@ Browser extension for [KeePassXC](https://keepassxc.org/) with native messaging.
 
 **INFO**: This repository is maintained along with the new official repository [https://github.com/keepassxreboot/keepassxc-browser](https://github.com/keepassxreboot/keepassxc-browser).
 
-This is a heavily forked version of [pfn](https://github.com/pfn)'s [chromeIPass](https://github.com/pfn/passifox).
+Based on [pfn](https://github.com/pfn)'s [chromeIPass](https://github.com/pfn/passifox).
 Some changes merged also from [smorks'](https://github.com/smorks) [KeePassHttp-Connector](https://github.com/smorks/keepasshttp-connector).
 
 Get the extension for [Firefox](https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/) or [Chrome/Chromium](https://chrome.google.com/webstore/detail/keepassxc-browser/oboonakemofpalcgghocfoadofidjkkk).
