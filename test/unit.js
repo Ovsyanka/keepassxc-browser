@@ -37,13 +37,13 @@ describe('Unit tests with background/keepass.js', function() {
         var keepass = rewire(BG_URL + 'keepass.js');
         var nacl = rewire(BG_URL + 'nacl.min.js');
         nacl.util = rewire(BG_URL + 'nacl-util.min.js');
-        
+
         var serverPublicKey = nacl.util.decodeBase64('EhpnWP2r3LVllNv3wzASjdEZnJD6ICMkhedegxT2BX8=');
         var serverSecretKey = nacl.util.decodeBase64('ZhpIDkRYkhz6oujjkBY5HfRJtYAfj7ln/bYqLagUyvg=');
         var nonce = keepass.getNonce();
         var clientMessage = '{message: \'a test message\'}';
         var serverMessage = '{message: \'a test response\', success: \'true\'}';
-        
+
         keepass.generateNewKeyPair();   // Client keypair
         keepass.serverPublicKey = serverPublicKey;
 
@@ -73,6 +73,6 @@ describe('Unit tests with background/keepass.js', function() {
 });
 
 // Unit tests with content script
-describe('Unit tests with keepassxc-browser.js content script', function() {
-    
-});
+/*describe('Unit tests with keepassxc-browser.js content script', function() {
+
+});*/

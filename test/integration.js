@@ -6,16 +6,48 @@ var chrome = require('selenium-webdriver/chrome'),
     until = require('selenium-webdriver/lib/until'),
     logger = require('selenium-webdriver/lib/logging'),
     rewire = require('rewire'),
+    fs = require('fs'),
 	localStorage = require('localStorage');
-
-// The extension URL should be received dynamically instead a hard-coded one
-var BASE_URL = 'chrome-extension://jaikbblhommnkeialomogohhdlndpfbi/',
-	OPTIONS_URL = BASE_URL + 'options/options.html',
-	POPUP_URL = BASE_URL + 'popups/popup.html';
 
 var wd;
 
-test.before(function() {
+function getExtensionName() {
+    const manifestFile = 'keepassxc-browser/manifest.json'
+    const manifest = JSON.parse(fs.readFileSync(manifestFile).toString());
+    return(manifest['name']);
+}
+
+function getExtensionID(callback) {
+    const extensionName = getExtensionName();
+    var extensionIndex = null;
+    var devToggle = {id: 'dev-toggle'};
+
+    wd.get('chrome://extensions');
+    wd.wait(until.elementLocated(devToggle), 2000).then(function() {
+        wd.actions().click(wd.findElement(devToggle)).perform().then(function() {
+            wd.findElements({className: 'extension-details'}).then(function(details) {
+                for (detail of details) {
+                    var extensionID;
+                    detail.findElement({className: 'extension-id'}).then(function(id) {
+                        id.getText().then(function(res) {
+                            extensionID = res;
+                        });
+                    });
+
+                    detail.findElement({className: 'extension-title'}).then(function(title) {
+                        title.getText().then(function(val) {
+                            if (val === extensionName) {
+                                callback(extensionID);
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    });
+}
+
+test.before(function(done) {
 	var chromeOptions = new chrome.Options().addArguments("load-extension=keepassxc-browser/");
 	var firefoxOptions = new firefox.Options();	// None set yet. Use only chrome for now.
 
@@ -24,6 +56,15 @@ test.before(function() {
 		.setChromeOptions(chromeOptions)
 		.setFirefoxOptions(firefoxOptions)
 		.build();
+
+    // Build URL's based on the extension ID
+    getExtensionID(function(id) {
+        console.log('Extension ID: ' + id);
+        BASE_URL = 'chrome-extension://' + id + '/';
+        OPTIONS_URL = BASE_URL + 'options/options.html';
+        POPUP_URL = BASE_URL + 'popups/popup.html';
+        done();
+    });
 });
 
 test.after(function() {
