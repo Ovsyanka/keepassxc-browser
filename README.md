@@ -1,7 +1,7 @@
 # KeePassXC-Browser
 Browser extension for [KeePassXC](https://keepassxc.org/) with native messaging.
 
-**INFO**: This repository is maintained along with the new official repository [https://github.com/keepassxreboot/keepassxc-browser](https://github.com/keepassxreboot/keepassxc-browser).
+**INFO**: This repository is no longer maintained and may not be up-to-date. Please check the new official repository [https://github.com/keepassxreboot/keepassxc-browser](https://github.com/keepassxreboot/keepassxc-browser).
 **Please create any new issues to the official repository**
 
 This is a heavily forked version of [pfn](https://github.com/pfn)'s [chromeIPass](https://github.com/pfn/passifox).
